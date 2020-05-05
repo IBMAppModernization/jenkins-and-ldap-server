@@ -4,18 +4,44 @@ This repo contains an ansible playbook for installing and configuring the follow
 
 1. An OpenLDAP server with a set of users, groups and passwords.
 
-    * Two groups: *admins* and *developers*
+    * Latest available version in the yum repo is installed
+
+    * Two groups are created: *admins* and *developers*
         * Members of the *admins* group will be Jenkins super users
             - One member of this group will be created - *suser001*
         * Members of the *developers* will be Jenkins regular users
             - 40 members of this group will be created with usernames in the range:  *user001 - user040*
 
 2. A Jenkins server using the above LDAP for user authentication
+
+    * Latest available version in the Jenkins yum repo is installed
+
     * The following are also installed to support Jenkins pipelines:
-        * Docker
-        * kubectl
-        * Maven
-        * IBM Cloud CLI
+        * OpenJDK 8 - latest available version in the yum repo
+        * Docker - latest available versions in Docker yum repo
+        * kubectl - v1.16.9
+        * Maven - latest available version in yum repo
+        * IBM Cloud CLI - latest available version
+
+    * The latest versions of the following plugins and their dependencies are also installed:
+    
+        * ant
+        * build-timeout
+        * command-launcher
+        * email-ext
+        * github-branch-source
+        * github-pullrequest
+        * gradle
+        * kubernetes
+        * matrix-auth
+        * pam-auth
+        * antisamy-markup-formatter
+        * workflow-aggregator
+        * ssh-slaves
+        * subversion
+        * timestamper
+        * ws-cleanup
+        * ldap
 
 ## Prerequisites
 
@@ -75,7 +101,7 @@ ansible-playbook  -i inventory/hosts playbooks/site.yml
     * Select **Read** in the **Overall** column for **Authenticated Users**
     * Click **Add user or group ...** . Enter `admins` as the name and click **OK**
     * Select the checkbox to the immediate right of the  **admins** groups to give all permissions to members of the group
-    * Click **Save** 
+    * Click **Save**
 
 
 ## Sample batch scripts
