@@ -1,0 +1,145 @@
+- name: Ensure [jenkinsvm] group is populated
+  fail:
+    msg: >
+      Detected no [jenkins] in inventory. Please add hosts to the
+      [jenkinsvm] host group to add nodes.
+  when: groups.jenkinsvm | default([]) | length == 0
+
+- name: Install latest Maven, OpenJDK 8
+  yum:
+    name:
+      - java-1.8.0-openjdk-devel
+      - maven
+    state: present
+
+- name: Install Docker prereqs
+  yum:
+    name:
+      - device-mapper-persistent-data
+      - lvm2
+    state: present
+
+- name: Add Docker yum repo
+  shell:  "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install Docker
+  yum:
+    name: docker-ce
+    state: present
+
+- name: Start Docker daemon and enable on boot
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Download Jenkins repo yum URL for
+  get_url:
+    url: "{{jenkins.repo_URL}}"
+    dest: /etc/yum.repos.d/jenkins.repo
+
+- name: Import GPG Key
+  rpm_key:
+    state: present
+    key: "{{jenkins.gpg_key}}"
+
+- name: Add the group 'jenkins'
+  group:
+    name: jenkins
+    state: present
+
+- name: Add the user 'jenkins' with a bash shell, in groups 'jenkins,users.docker'
+  user:
+    name: jenkins
+    shell: /bin/bash
+    group: jenkins
+    groups: users,docker
+
+- name: Install Jenkins
+  yum:
+    name: jenkins
+    state: present
+
+- name: Change Jenkins JAVA options
+  lineinfile:
+    dest=/etc/sysconfig/jenkins
+    regexp=^JENKINS_JAVA_OPTIONS=
+    line=JENKINS_JAVA_OPTIONS="{{jenkins.JAVA_OPTIONS}}"
+
+- name: Start Jenkins service and enable on boot
+  service:
+    name: jenkins
+    state: started
+    enabled: yes
+
+- name: Wait for Jenkins to start up
+  uri:
+    url: http://localhost:8080
+    status_code: 200
+    timeout: 5
+  register: jenkins_service_status
+  # Keep trying for 5 mins in 5 sec intervals
+  retries: 60
+  delay: 5
+  until: >
+     'status' in jenkins_service_status and
+     jenkins_service_status['status'] == 200
+
+- name: Install Jenkins Plugins
+  jenkins_plugin:
+    name: "{{ item.key }}"
+    url: http://localhost:8080
+  register: plugin_result
+  until: plugin_result is success
+  retries: 5
+  delay: 2
+  with_items: # no version = latest
+    - { key: "ant"}
+    - { key: "build-timeout"}
+    - { key: "command-launcher"}
+    - { key: "email-ext"}
+    - { key: "github-branch-source"}
+    - { key: "github-pullrequest"}
+    - { key: "gradle"}
+    - { key: "kubernetes"}
+    - { key: "matrix-auth"}
+    - { key: "pam-auth"}
+    - { key: "antisamy-markup-formatter"}
+    - { key: "workflow-aggregator"}
+    - { key: "ssh-slaves"}
+    - { key: "subversion"}
+    - { key: "timestamper"}
+    - { key: "ws-cleanup"}
+    - { key: "ldap"}
+
+- name: Install IBM Cloud CLI
+  shell: "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"
+  args:
+    creates: /usr/local/ibmcloud/bin/ibmcloud
+    warn: no
+
+- name: Download Kubectl
+  get_url:
+    url: "{{jenkins.kubectl_URL}}"
+    dest: /usr/local/bin
+    mode: 0755
+
+- name: Restart Jenkins service
+  service:
+    name: jenkins
+    state: restarted
+
+- name: Wait for Jenkins to restart
+  uri:
+    url: http://localhost:8080
+    status_code: 200
+    timeout: 5
+  register: jenkins_service_restart_status
+  # Keep trying for 5 mins in 5 sec intervals
+  retries: 60
+  delay: 5
+  until: >
+     'status' in jenkins_service_restart_status and
+     jenkins_service_restart_status['status'] == 200

@@ -1,0 +1,14 @@
+- hosts: localhost
+  roles:
+    - genusers
+  tags: genusers
+
+- hosts: jenkinsvm
+  roles:
+    - openldap
+  tags: openldap
+
+- hosts: jenkinsvm
+  roles:
+    - jenkins
+  tags: jenkins

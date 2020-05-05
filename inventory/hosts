@@ -1,0 +1,9 @@
+[all:vars]
+ansible_user=root
+#ansible_become=True
+
+# Set this to the LDAP bind password you want to use
+ldap_bind_password=
+
+# Add external IP address of provisioned CentOS or RHEL VSI
+[jenkinsvm]

@@ -1,0 +1,7 @@
+---
+# vars file for jenkins
+jenkins:
+  repo_URL: "http://pkg.jenkins.io/redhat/jenkins.repo"
+  gpg_key: "http://pkg.jenkins.io/redhat/jenkins.io.key"
+  JAVA_OPTIONS: "-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+  kubectl_URL: "https://storage.googleapis.com/kubernetes-release/release/v1.16.9/bin/linux/amd64/kubectl"
