@@ -6,9 +6,9 @@ This repo contains an ansible playbook for installing and configuring the follow
 
     * Two groups: *admins* and *developers*
         * Members of the *admins* group will be Jenkins super users
-                * One member of this group will be created - *suser001*
+                - One member of this group will be created - *suser001*
         * Members of the *developers* will be Jenkins regular users
-                * 40 members of this group will be created with usernames in the range - *user001 - user040*
+                - 40 members of this group will be created with usernames in the range - *user001 - user040*
 
 2. A Jenkins server using the above LDAP for user authentication
     * The following is also installed to support Jenkins pipelines:
@@ -32,18 +32,18 @@ This repo contains an ansible playbook for installing and configuring the follow
 
     * A bind password for the LDAP server. This will be set when OpenLDAP is configured by the playbook
 
-```
-# Set this to the LDAP bind password you want to use
-ldap_bind_password=yourverysecurebindpassword
-```
+    ```
+    # Set this to the LDAP bind password you want to use
+    ldap_bind_password=yourverysecurebindpassword
+    ```
 
     * The IP address of your CentOS 7 or RHEL 7 VSI
 
-```
-# Add external IP address of provisioned CentOS 7  or RHEL 7 VSI
-[jenkinsvm]
-10.10.10.10
-```
+    ```
+    # Add external IP address of provisioned CentOS 7  or RHEL 7 VSI
+    [jenkinsvm]
+    10.10.10.10
+    ```
 
 2. Run the following command from the base directory of this cloned repo
 
