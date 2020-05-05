@@ -106,7 +106,7 @@ ansible-playbook  -i inventory/hosts playbooks/site.yml
 
 ## Sample batch scripts
 
-The following script are made available as samples to automate the creation and deletion of pipelines for each user in the range *user001 - user040*
+The following scripts are made available as samples to automate the creation and deletion of pipelines for each user in the range *user001 - user040*
 
 * [batch-operation-samples/getjob.sh](batch-operation-samples/getJob.sh) - Get xml config of pipeline with name user001_pipeline and convert to a template
 
