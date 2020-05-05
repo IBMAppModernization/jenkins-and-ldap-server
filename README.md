@@ -70,11 +70,13 @@ ansible-playbook  -i inventory/hosts playbooks/site.yml
     * Enter the LDAP bind password you configured in [inventory/hosts](inventory/hosts) as the **Manager Password**
     * Scroll down and click on **Test LDAP Settings**
     * Enter `suser001` as the **User** and the generated password for that user from **users.csv**. Click **Test**
+    * Verify that the test is successful before continuing
     * Scroll down to **Authorization** and select the **Project-based Matrix Authorization Strategy**
     * Select **Read** in the **Overall** column for **Authenticated Users**
-    * Click **Add user of group ...** . Enter `admins` as the name and click **OK**
+    * Click **Add user or group ...** . Enter `admins` as the name and click **OK**
     * Select the checkbox to the immediate right of the  **admins** groups to give all permissions to members of the group
-    * Click **Save**
+    * Click **Save** 
+
 
 ## Sample batch scripts
 
