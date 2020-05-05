@@ -8,7 +8,7 @@ This repo contains an ansible playbook for installing and configuring the follow
         * Members of the *admins* group will be Jenkins super users
             - One member of this group will be created - *suser001*
         * Members of the *developers* will be Jenkins regular users
-            - 40 members of this group will be created with usernames in the range - *user001 - user040*
+            - 40 members of this group will be created with usernames in the range:  *user001 - user040*
 
 2. A Jenkins server using the above LDAP for user authentication
     * The following are also installed to support Jenkins pipelines:
@@ -54,7 +54,7 @@ ansible-playbook  -i inventory/hosts playbooks/site.yml
 
 ## Post install setup
 
-1. Open the file **users.csv** in the **users** subfolder of the base directory of this cloned repo. The first line of the file will have the *suser001* user and the password. The remaining lines will be the users *user001 - user040* and their respective passwords. *Note:* if you run the playbook again and this file is present,  a fresh set of passwords will not be generated.
+1. Open the file **users.csv** in the **users** subfolder of the base directory of this cloned repo. The first line of the file will have the *suser001* user and the password. The remaining lines will be the users *user001 - user040* and their respective passwords. **Note:** if you run the playbook again and this file is present,  a fresh set of passwords will not be generated.
 
 2. Configure your Jenkins server to use LDAP
 
