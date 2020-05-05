@@ -6,12 +6,12 @@ This repo contains an ansible playbook for installing and configuring the follow
 
     * Two groups: *admins* and *developers*
         * Members of the *admins* group will be Jenkins super users
-                - One member of this group will be created - *suser001*
+            - One member of this group will be created - *suser001*
         * Members of the *developers* will be Jenkins regular users
-                - 40 members of this group will be created with usernames in the range - *user001 - user040*
+            - 40 members of this group will be created with usernames in the range - *user001 - user040*
 
 2. A Jenkins server using the above LDAP for user authentication
-    * The following is also installed to support Jenkins pipelines:
+    * The following are also installed to support Jenkins pipelines:
         * Docker
         * kubectl
         * Maven
