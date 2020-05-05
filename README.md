@@ -18,13 +18,13 @@ This repo contains an ansible playbook for installing and configuring the follow
 
     * The following are also installed to support Jenkins pipelines:
         * OpenJDK 8 - latest available version in the yum repo
-        * Docker - latest available versions in Docker yum repo
+        * Docker - latest available version in Docker yum repo
         * kubectl - v1.16.9
         * Maven - latest available version in yum repo
         * IBM Cloud CLI - latest available version
 
     * The latest versions of the following plugins and their dependencies are also installed:
-    
+
         * ant
         * build-timeout
         * command-launcher
