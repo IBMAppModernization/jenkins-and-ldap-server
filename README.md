@@ -45,11 +45,11 @@ This repo contains an ansible playbook for installing and configuring the follow
 
 ## Prerequisites
 
-1. A clone this repo on your local machine.
+1. A clone of this repo on your local machine.
 
 1. A local installation of [ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html). **Note:** The playbook was tested with *ansible 2.9.2* on *macOS Mojave*.
 
-1. A Virtual Server Instance of CentOS 7 RHEL 7 running on IBM Cloud with passwordless SSH  up from your local machine set  for the *root* user.
+1. A Virtual Server Instance of CentOS 7 RHEL 7 running on IBM Cloud with passwordless SSH  from your local machine set for the *root* user.
 
 
 ## Running the playbook
