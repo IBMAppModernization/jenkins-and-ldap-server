@@ -71,7 +71,13 @@ This repo contains an ansible playbook for installing and configuring the follow
     10.10.10.10
     ```
 
-2. Run the following command from the base directory of this cloned repo
+2. You may need to run chmod to make the scripts in the playbook executable for your localhost environment
+
+```
+chmod a+x playbooks/scripts/*.sh
+```
+
+3. Run the following command from the base directory of this cloned repo
 
 ```
 ansible-playbook  -i inventory/hosts playbooks/site.yml
